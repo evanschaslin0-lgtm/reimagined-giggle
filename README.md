@@ -1,2 +1,2 @@
 # reimagined-giggle
-Freelance-rate-calculator 
+Freelance-rate-calculators 
