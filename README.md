@@ -26,4 +26,4 @@ MIT
 
 ## Contact
 
-Made by [evanschaslin0-lgtm](https://github.com/evanschaslin0-lgtm)..
+Made by [evanschaslin0-lgtm](https://github.com/evanschaslin0-lgtm).
