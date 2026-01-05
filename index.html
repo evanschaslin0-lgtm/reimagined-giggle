@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Freelance Hourly Rate Calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Calculate your ideal freelance hourly rate in seconds.">
+  <style>
+    body { font-family: system-ui, Arial, sans-serif; background: #f8f9fa; color: #222; margin: 0; }
+    main { max-width: 600px; box-shadow:0 4px 24px #aaa2; margin: 3rem auto; background: #fff; border-radius:1rem; padding: 2rem;}
+    h1 { color: #185aaa; text-align: center; margin-bottom: 0.5em;}
+    label { display: block; font-weight: 500; margin-top: 1em;}
+    input[type="number"] { width: 100%; padding: 0.5em; font-size: 1em; border-radius: 0.3em; border: 1px solid #bbb; }
+    button { background: #185aaa; color: #fff; border: none; border-radius:4px; padding: 0.75em 2em; font-size: 1em; margin-top:1.5em; cursor:pointer;}
+    button:hover { background: #1761ad;}
+    .result { background: #e8f5fd; color: #185aaa; border-left: 5px solid #185aaa; margin-top: 2em; padding: 1em; font-size: 1.2em; border-radius:0.5em;}
+    .note { font-size: 0.96em; color: #555;}
+    @media (max-width: 640px) {
+      main { margin: 1em; padding: 1em; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Freelance Hourly Rate Calculator</h1>
+    <form id="rateForm" autocomplete="off">
+      <label for="income">Annual Income Goal ($):</label>
+      <input id="income" type="number" min="0" step="1000" value="70000" required />
+
+      <label for="expenses">Total Annual Expenses ($):</label>
+      <input id="expenses" type="number" min="0" step="500" value="15000" required />
+
+      <label for="hours">Billable Client Hours per Year:</label>
+      <input id="hours" type="number" min="1" max="2000" step="10" value="1200" required />
+
+      <button type="submit">Calculate</button>
+    </form>
+    <div id="output" class="result" style="display: none;"></div>
+    <p class="note">Tip: <b>Billable hours</b> means time you can actually charge clients forypically less than a full work year (2,000 hours), since admin, marketing, and time off are unpaid.</p>
+    <script>
+      const form = document.getElementById('rateForm');
+      const out = document.getElementById('output');
+      form.onsubmit = function(e) {
+        e.preventDefault();
+        const income = +form.income.value, expenses = +form.expenses.value, hours = +form.hours.value;
+        if (hours > 0) {
+          const rate = ((income + expenses) / hours);
+          out.textContent = isFinite(rate)
+            ? `To reach your goals, your minimum freelance hourly rate should be: $${rate.toFixed(2)}`
+            : 'Input error. Please check your numbers.';
+          out.style.display = '';
+        }
+      };
+    </script>
+  </main>
+</body>
+</html>

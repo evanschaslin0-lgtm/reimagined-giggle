@@ -1,0 +1,33 @@
+name: Accessibility & Performance Checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lighthouse-pa11y:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+
+    - name: Install dependencies
+      run: |
+        npm install -g http-server@14.1.1 pa11y@6.0.1 @lhci/cli@0.12.0
+
+    - name: Start local server
+      run: |
+        nohup http-server -p 8080 &
+        sleep 3
+
+    - name: Run Lighthouse CI
+      run: lhci collect --url=http://localhost:8080/index.html || true
+
+    - name: Run Pa11y Accessibility Check
+      run: pa11y http://localhost:8080/index.html || true
